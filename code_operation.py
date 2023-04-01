@@ -6,7 +6,6 @@ import os
 import re
 
 # third-party
-import astunparse
 import black
 import isort
 from black.report import NothingChanged
@@ -36,7 +35,7 @@ class CodeOperation:
             trigger_stop: The regex pattern to use to stop the search.
         """
         magnet_on = not trigger_start
-        for line in astunparse.unparse(ast.parse(code)).split('\n'):
+        for line in ast.unparse(ast.parse(code)).split('\n'):
             if line.lstrip()[:1] not in ("'", '"'):
                 # Find class before looking for needle
                 if trigger_start is not None and re.match(trigger_start, line):
