@@ -167,10 +167,7 @@ class CamelString(str):
 
     def singular(self):
         """Return the singular spelling of a camelCase string."""
-        try:
-            _singular = self.so.inflect.singular(self)
-        except Exception:
-            _singular = self.so.inflect.singular_noun(self)
+        _singular = self.so.inflect.singular_noun(self)
 
         if not _singular:
             _singular = self
@@ -205,10 +202,7 @@ class SnakeString(str):
 
     def singular(self):
         """Return the singular spelling of a snake_case string."""
-        try:
-            _singular = self.so.inflect.singular(self)
-        except Exception:
-            _singular = self.so.inflect.singular_noun(self)
+        _singular = self.so.inflect.singular_noun(self)
 
         if not _singular:
             _singular = self
