@@ -120,7 +120,7 @@ class DatetimeOperation:
         time_input2_ = self.any_to_datetime(time_input2).datetime
 
         diff = time_input1_ - time_input2_  # timedelta
-        delta: object = relativedelta(time_input1_, time_input2_)  # relativedelta
+        delta = relativedelta(time_input1_, time_input2_)  # relativedelta
 
         # totals
         total_months = (delta.years * 12) + delta.months
