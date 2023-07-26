@@ -102,7 +102,7 @@ class CodeOperation:
             isort_args = (
                 {'settings_file': 'pyproject.toml'} if os.path.isfile('pyproject.toml') else {}
             )
-            isort_config = isort.Config(**isort_args)
+            isort_config = isort.Config(**isort_args)  # type: ignore
             _code = isort.code(_code, config=isort_config)
         except Exception as ex:
             _logger.exception('Formatting of code with isort failed.')
