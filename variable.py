@@ -29,6 +29,15 @@ class Variable:
             return True
         return False
 
+    def contains_tc_variable(self, key: str):
+        """Return True if provided key contains a properly formatted TC variable."""
+        if not isinstance(key, str):
+            return False
+
+        if re.search(self.variable_tc_pattern, key):
+            return True
+        return False
+
     def get_playbook_variable_model(self, variable: str | None) -> PlaybookVariableModel | None:
         """Return data model of playbook variable (e.g., #App:1234:output!String)."""
         if variable is None:
