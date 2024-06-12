@@ -95,7 +95,7 @@ class StringOperation:
 
         output = string[0 : length - len(append_chars)]
         if spaces is True:
-            if not output.endswith(' '):
+            if not output.endswith(' ') and ' ' in output:
                 # split output on spaces and drop last item to terminate string on word
                 output = ' '.join(output.split(' ')[:-1])
 
