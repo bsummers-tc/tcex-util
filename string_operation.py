@@ -56,7 +56,7 @@ class StringOperation:
         return inflection.camelize(string, uppercase_first_letter=False)
 
     @staticmethod
-    def to_bool(value: bool | int | str) -> bool:
+    def to_bool(value: bool | int | str | None) -> bool:
         """Convert value to bool."""
         return str(value).lower() in ['1', 't', 'true', 'y', 'yes']
 
