@@ -91,13 +91,13 @@ class StringOperation:
 
         # ensure append_chars is not longer than length
         if len(append_chars) > length:  # pragma: no cover
-            raise RuntimeError('Append chars cannot exceed the truncation length.')
+            ex_msg = 'Append chars cannot exceed the truncation length.'
+            raise RuntimeError(ex_msg)
 
         output = string[0 : length - len(append_chars)]
-        if spaces is True:
-            if not output.endswith(' ') and ' ' in output:
-                # split output on spaces and drop last item to terminate string on word
-                output = ' '.join(output.split(' ')[:-1])
+        if spaces is True and not output.endswith(' ') and ' ' in output:
+            # split output on spaces and drop last item to terminate string on word
+            output = ' '.join(output.split(' ')[:-1])
 
         return f'{output.rstrip()}{append_chars}'
 
@@ -127,9 +127,9 @@ class StringOperation:
         def _tokenize(acc, curr):
             """Tokenize the input into strings and separators (from wrap_chars)."""
             if curr in wrap_chars:
-                return acc + [curr] + ['']
+                return [*acc, curr, '']
             if len(acc[-1]) == length and force_wrap:
-                return acc + [curr]
+                return [*acc, curr]
             acc[-1] += curr
             return acc
 
@@ -143,7 +143,7 @@ class StringOperation:
             if len(acc[-1]) + len(curr) < length:
                 acc[-1] += curr
                 return acc
-            return acc + [curr]
+            return [*acc, curr]
 
         lines = reduce(_chop, tokens, [''])
 

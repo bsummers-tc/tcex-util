@@ -55,10 +55,11 @@ class DatetimeOperation:
                 # convert timezone if tz arg provided, else return parsed object
                 return cls._convert_timezone(parsed, tz) if tz is not None else parsed
 
-        raise RuntimeError(  # pragma: no cover
+        ex_msg = (
             f'Value "{value}" of type "{type(datetime_expression)}" '
             'could not be parsed as a date time object.'
         )
+        raise RuntimeError(ex_msg)
 
     @property
     def arrow(self):
@@ -97,16 +98,19 @@ class DatetimeOperation:
 
         try:
             for range_tuple in Arrow.interval(**interval_args):
+                range_tuple_ = range_tuple
                 if date_format is not None:
-                    range_tuple = range_tuple[0].strftime(date_format), range_tuple[1].strftime(
-                        date_format
+                    range_tuple_ = (
+                        range_tuple[0].strftime(date_format),
+                        range_tuple[1].strftime(date_format),
                     )
-                yield range_tuple
+                yield range_tuple_
         except Exception as ex:  # pragma: no cover
-            raise RuntimeError(
+            ex_msg = (
                 'Could not generate date range. Please verify that chunk_size, chunk_unit, '
                 'and date_format values are valid.'
-            ) from ex
+            )
+            raise RuntimeError(ex_msg) from ex
 
     def timedelta(
         self, time_input1: int | str | datetime | Arrow, time_input2: int | str | datetime | Arrow
@@ -162,9 +166,8 @@ class DatetimeOperation:
         try:
             return arrow_dt.to(tz)
         except Exception as ex:  # pragma: no cover
-            raise RuntimeError(
-                f'Could not convert datetime to timezone "{tz}". Please verify timezone input.'
-            ) from ex
+            ex_msg = f'Could not convert datetime to timezone "{tz}". Please verify timezone input.'
+            raise RuntimeError(ex_msg) from ex
 
     @staticmethod
     def _parse_default_arrow_formats(value: str) -> Arrow:
