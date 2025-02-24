@@ -3,8 +3,8 @@
 # standard library
 import ast
 import logging
-import os
 import re
+from pathlib import Path
 
 # third-party
 import black
@@ -45,8 +45,7 @@ class CodeOperation:
 
                 # find need now that class definition is found
                 if magnet_on is True and re.match(needle, line):
-                    line = line.strip()
-                    return line
+                    return line.strip()
 
                 # break if needle not found before next class definition
                 if trigger_stop is not None and re.match(trigger_stop, line) and magnet_on is True:
@@ -101,7 +100,7 @@ class CodeOperation:
         # run isort on code
         try:
             isort_args = (
-                {'settings_file': 'pyproject.toml'} if os.path.isfile('pyproject.toml') else {}
+                {'settings_file': 'pyproject.toml'} if Path('pyproject.toml').is_file() else {}
             )
             isort_config = isort.Config(**isort_args)  # type: ignore
             _code = isort.code(_code, config=isort_config)

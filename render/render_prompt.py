@@ -4,7 +4,7 @@
 from typing import Literal
 
 # third-party
-from rich import print  # pylint: disable=redefined-builtin
+from rich import print as print_
 from rich.panel import Panel
 from rich.prompt import Prompt
 
@@ -39,7 +39,7 @@ class RenderPrompt:
     def input(cls, prompt_text: str, prompt_default: str, subtitle: str = '') -> str:
         """Render a prompt"""
         prompt_text = f'[white]{prompt_text}[/white][bold white]{prompt_default}[/bold white]'
-        print(Panel(prompt_text, title='Input', title_align=cls.title_align, subtitle=subtitle))
+        print_(Panel(prompt_text, title='Input', title_align=cls.title_align, subtitle=subtitle))
 
         # collect input
         return input('> ').strip()  # nosec

@@ -15,15 +15,15 @@ class CurlModel(BaseModel):
     """Model Definition"""
 
     body_limit: int = Field(100, description='The size limit for the body value.')
-    mask_body: bool = Field(False, description='If True the body will be masked.')
+    mask_body: bool = Field(default=False, description='If True the body will be masked.')
     proxies: dict[str, str] | None = Field(
         None, description='A dict containing the proxy configuration.'
     )
     verify: bool | str = Field(
-        True, description='If False the curl command will include --insecure flag.'
+        default=True, description='If False the curl command will include --insecure flag.'
     )
     write_file: bool = Field(
-        False,
+        default=False,
         description='If True and the body is binary it will be written as a temp file.',
     )
 
@@ -60,6 +60,7 @@ class RequestsToCurl:
         """Process headers and return a list of curl commands."""
         _headers = []
         for k, v in sorted(dict(headers).items()):
+            v_ = v
             if mask_headers is True:
                 patterns = [
                     'authorization',
@@ -76,18 +77,18 @@ class RequestsToCurl:
 
                 for p in patterns:
                     if re.match(rf'.*{p}.*', k, re.IGNORECASE):
-                        v: str = self.util.printable_cred(v)
+                        v_: str = self.util.printable_cred(v_)
 
                 # using gzip in Accept-Encoding with CURL on the CLI produces
                 # the warning "Binary output can mess up your terminal."
                 if k.lower() == 'accept-encoding':
-                    encodings = [e.strip() for e in v.split(',')]
+                    encodings = [e.strip() for e in v_.split(',')]
                     for encoding in list(encodings):
                         if encoding in ['gzip']:
                             encodings.remove(encoding)
-                    v: str = ', '.join(encodings)
+                    v_: str = ', '.join(encodings)
 
-            _headers.append(f"-H '{k}: {v}'")
+            _headers.append(f"-H '{k}: {v_}'")
         return _headers
 
     def _process_proxies(self, proxies: dict[str, str] | None) -> list[str]:

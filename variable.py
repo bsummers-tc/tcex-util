@@ -23,21 +23,11 @@ class Variable:
 
     def contains_playbook_variable(self, key: str) -> bool:
         """Return True if provided key contains a properly formatted playbook variable."""
-        if not isinstance(key, str):
-            return False
-
-        if re.search(self.variable_playbook_pattern, key):
-            return True
-        return False
+        return isinstance(key, str) and bool(re.search(self.variable_playbook_pattern, key))
 
     def contains_tc_variable(self, key: str):
         """Return True if provided key contains a properly formatted TC variable."""
-        if not isinstance(key, str):
-            return False
-
-        if re.search(self.variable_tc_pattern, key):
-            return True
-        return False
+        return isinstance(key, str) and bool(re.search(self.variable_tc_pattern, key))
 
     def get_playbook_variable_model(self, variable: str | None) -> PlaybookVariableModel | None:
         """Return data model of playbook variable (e.g., #App:1234:output!String)."""
@@ -59,19 +49,11 @@ class Variable:
 
     def is_playbook_variable(self, key: str) -> bool:
         """Return True if provided key is a properly formatted playbook variable."""
-        if not isinstance(key, str):
-            return False
-        if re.match(self.variable_playbook_match, key):
-            return True
-        return False
+        return isinstance(key, str) and bool(re.match(self.variable_playbook_match, key))
 
     def is_tc_variable(self, key: str) -> bool:
         """Return True if provided key is a properly formatted tc variable."""
-        if not isinstance(key, str):
-            return False
-        if re.match(self.variable_tc_match, key):
-            return True
-        return False
+        return isinstance(key, str) and bool(re.match(self.variable_tc_match, key))
 
     @property
     def variable_expansion_pattern(self) -> re.Pattern:
@@ -125,7 +107,7 @@ class Variable:
     @property
     def variable_playbook_match(self) -> re.Pattern:
         """Return compiled re pattern for exact match of variable."""
-        return re.compile(fr'^{self.variable_playbook_pattern}$')
+        return re.compile(rf'^{self.variable_playbook_pattern}$')
 
     def variable_playbook_method_name(self, variable: str) -> str | None:
         """Convert variable name to a valid method name.
@@ -192,7 +174,7 @@ class Variable:
     @property
     def variable_tc_match(self) -> re.Pattern:
         """Return regex pattern for tc variable EXACT match."""
-        return re.compile(fr'^{self.variable_tc_pattern}$')
+        return re.compile(rf'^{self.variable_tc_pattern}$')
 
     @property
     def variable_tc_parse(self) -> re.Pattern:

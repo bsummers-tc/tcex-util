@@ -4,7 +4,7 @@
 from typing import Literal
 
 # third-party
-from rich import print  # pylint: disable=redefined-builtin
+from rich import print as print_
 from rich.panel import Panel
 from rich.table import Table
 
@@ -72,4 +72,6 @@ class RenderTable:
 
         # render panel->table
         if kv_data:
-            print(Panel(table, border_style=border_style, title=title, title_align=cls.title_align))
+            print_(
+                Panel(table, border_style=border_style, title=title, title_align=cls.title_align)
+            )

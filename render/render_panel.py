@@ -5,7 +5,7 @@ import sys
 from typing import Literal, NoReturn
 
 # third-party
-from rich import print  # pylint: disable=redefined-builtin
+from rich import print as print_
 from rich.columns import Columns
 from rich.panel import Panel
 from rich.rule import Rule
@@ -31,7 +31,7 @@ class RenderPanel:
     ):
         """Render Column with index in a panel."""
         columns = Columns(column_data, equal=equal, expand=expand)
-        print(
+        print_(
             Panel(
                 columns,
                 title=title,
@@ -52,7 +52,7 @@ class RenderPanel:
         """Render Column with index in a panel."""
         column_data = [f'[{cls.accent}]{i}.[/{cls.accent}] {o}' for i, o in enumerate(column_data)]
         columns = Columns(column_data, equal=equal, expand=expand)
-        print(
+        print_(
             Panel(
                 columns,
                 title=title,
@@ -64,7 +64,7 @@ class RenderPanel:
     @classmethod
     def error(cls, message: str):
         """Render error panel."""
-        print(
+        print_(
             Panel(
                 Text(
                     f'{message}',
@@ -79,7 +79,7 @@ class RenderPanel:
     @classmethod
     def failure(cls, message: str) -> NoReturn:
         """Render failure panel."""
-        print(
+        print_(
             Panel(
                 Text(
                     f'{message}',
@@ -95,7 +95,7 @@ class RenderPanel:
     @staticmethod
     def info(message: str, title: str = 'Info', title_align: AlignMethod = 'left'):
         """Render info panel."""
-        print(
+        print_(
             Panel(
                 f'{message}',
                 expand=True,
@@ -107,7 +107,7 @@ class RenderPanel:
     @staticmethod
     def invalid_value(message: str, title: str, title_align: AlignMethod = 'left'):
         """Render invalid values panel."""
-        print(
+        print_(
             Panel(
                 Text(
                     f'{message}',
@@ -127,7 +127,7 @@ class RenderPanel:
 
         # render error panel
         if item_list:
-            print(
+            print_(
                 Panel(
                     item_list,
                     border_style='',
@@ -140,7 +140,7 @@ class RenderPanel:
     @staticmethod
     def rule(title: str, align: AlignMethod = 'center', style: str = ''):
         """Render a horizontal rule."""
-        print(
+        print_(
             Panel(
                 Rule(
                     title=title,
@@ -153,7 +153,7 @@ class RenderPanel:
     @classmethod
     def success(cls, message: str):
         """Render success panel."""
-        print(
+        print_(
             Panel(
                 Text(
                     f'{message}',
@@ -168,7 +168,7 @@ class RenderPanel:
     @classmethod
     def warning(cls, message: str):
         """Render warning panel."""
-        print(
+        print_(
             Panel(
                 Text(
                     f'{message}',
