@@ -71,7 +71,7 @@ class Variable:
             # Provider:
             # PB-Variable: literal "App"
             # TC-Variable: provider (e.g. TC|Vault)
-            r'(?P<provider>[A-Za-z]+):'
+            r'(?P<provider>App|TC|Trigger):'
             # ID:
             # PB-Variable: Job ID (e.g., 334)
             # TC-Variable: One of (FILE|KEYCHAIN|TEXT)
@@ -137,8 +137,8 @@ class Variable:
         Parse this string -> #App:334:example.service_input!String
         """
         return (
-            # App Type: one of the following types (APP|Trigger)
-            r'#(?P<app_type>[A-Za-z]+)'
+            # App Type: one of the following types (App|Trigger)
+            r'#(?P<app_type>App|Trigger)'
             # Job ID: the Id of the running job (e.g, 7979).
             r':(?P<job_id>[\d]+)'
             # Key: the variable key (e.g., api_token)
@@ -192,7 +192,7 @@ class Variable:
             r'(?:&)'
             r'(?:\{)'
             # Provider: who provides the variable (e.g. TC|Vault)
-            r'(?P<provider>[A-Za-z]+):'
+            r'(?P<provider>TC|Vault):'
             # Type: one of (FILE|KEYCHAIN|TEXT)
             r'(?P<type>FILE|KEYCHAIN|TEXT):'
             # Key: variable id (e.g., 4dc9202e-6945-4364-aa40-4b47655046d2)
