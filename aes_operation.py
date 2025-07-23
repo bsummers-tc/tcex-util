@@ -34,7 +34,7 @@ class AesOperation:
         aes_cbc_decrypt = pyaes.Decrypter(pyaes.AESModeOfOperationCBC(key, iv=iv))
         decrypted = aes_cbc_decrypt.feed(ciphertext)
         decrypted += aes_cbc_decrypt.feed()
-        return cast(bytes, decrypted)
+        return cast('bytes', decrypted)
 
     @staticmethod
     def encrypt_aes_cbc(
@@ -64,4 +64,4 @@ class AesOperation:
         aes_cbc_encrypt = pyaes.Encrypter(pyaes.AESModeOfOperationCBC(key, iv=iv))
         encrypted = aes_cbc_encrypt.feed(plaintext)
         encrypted += aes_cbc_encrypt.feed()
-        return cast(bytes, encrypted)
+        return cast('bytes', encrypted)
