@@ -60,6 +60,8 @@ class Variable:
         """Regex pattern to match and parse a playbook or ThreatConnect variable.
 
         Playbook Variable : #App:334:example.service_input!String
+                          : #Global:0:gbl.timestamp.iso!String
+                          : #Trigger:1:testing.body!String
         TC Variable       : &{TC:TEXT:4dc9202e-6945-4364-aa40-4b47655046d2}
         """
         return re.compile(
@@ -71,7 +73,7 @@ class Variable:
             # Provider:
             # PB-Variable: provider - literal "App|Trigger"
             # TC-Variable: provider - literal "TC|Vault"
-            r'(?P<provider>App|TC|Trigger|Vault):'
+            r'(?P<provider>App|Global|TC|Trigger|Vault):'
             # ID:
             # PB-Variable: Job ID (e.g., 334)
             # TC-Variable: One of (FILE|KEYCHAIN|TEXT)
@@ -134,11 +136,13 @@ class Variable:
     def variable_playbook_pattern(self) -> str:
         """Regex pattern to match and parse a playbook variable.
 
-        Parse this string -> #App:334:example.service_input!String
+        Parse this string: #App:334:example.service_input!String
+                         : #Global:0:gbl.timestamp.iso!String
+                         : #Trigger:1:testing.body!String
         """
         return (
             # App Type: literal "App|Trigger"
-            r'#(?P<app_type>App|Trigger)'
+            r'#(?P<app_type>App|Global|Trigger)'
             # Job ID: the Id of the running job (e.g, 7979).
             r':(?P<job_id>[\d]+)'
             # Key: the variable key (e.g., api_token)
