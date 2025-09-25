@@ -17,11 +17,13 @@ class StringOperation:
         """Return str with custom properties/methods."""
         return CamelString(string)
 
-    def camel_to_snake(self, string: str) -> str:
+    @staticmethod
+    def camel_to_snake(string: str) -> str:
         """Return snake_case string from a camelCase string."""
         return inflection.underscore(string)
 
-    def camel_to_space(self, string: str) -> str:
+    @staticmethod
+    def camel_to_space(string: str) -> str:
         """Return space case string from a camelCase string."""
         return inflection.underscore(string).replace('_', ' ')
 
