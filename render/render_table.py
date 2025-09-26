@@ -1,9 +1,7 @@
 """TcEx Framework Module"""
 
-# standard library
 from typing import Literal
 
-# third-party
 from rich import print as print_
 from rich.panel import Panel
 from rich.table import Table

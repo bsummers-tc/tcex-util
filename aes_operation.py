@@ -1,9 +1,7 @@
 """TcEx Framework Module"""
 
-# standard library
 from typing import cast
 
-# third-party
 import pyaes
 
 

@@ -1,6 +1,5 @@
 """TcEx Framework Module"""
 
-# standard library
 import gzip
 import json
 import tempfile

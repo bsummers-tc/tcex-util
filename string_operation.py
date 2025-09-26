@@ -1,11 +1,9 @@
 """TcEx Framework Module"""
 
-# standard library
 import random
 from functools import cached_property, reduce
 from string import ascii_letters
 
-# third-party
 import inflection
 
 
