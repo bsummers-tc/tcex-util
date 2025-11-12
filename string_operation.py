@@ -25,6 +25,11 @@ class StringOperation:
         """Return space case string from a camelCase string."""
         return inflection.underscore(string).replace('_', ' ')
 
+    @staticmethod
+    def defang(string: str) -> str:
+        """Defang URLs, IPs, and common indicators to make them inert."""
+        return Defanger.defang(string)
+
     @cached_property
     def inflect(self):
         """Return instance of inflect."""
@@ -39,6 +44,11 @@ class StringOperation:
     def random_string(string_length: int = 10) -> str:
         """Generate a random string of fixed length."""
         return ''.join(random.choice(ascii_letters) for _ in range(string_length))  # nosec
+
+    @staticmethod
+    def refang(string: str) -> str:
+        """Refang URLs, IPs, and common indicators to make them active."""
+        return Defanger.refang(string)
 
     @staticmethod
     def snake_string(string: str) -> 'SnakeString':
@@ -179,6 +189,39 @@ class CamelString(str):
     def space_case(self):
         """Return a "space case" version of a camelCase string."""
         return CamelString(self.so.camel_to_space(self))
+
+
+class Defanger:
+    """Defang and Refang IOC strings."""
+
+    defang_replacements = {  # noqa: RUF012
+        'http://': 'hxxp://',
+        'https://': 'hxxps://',
+        'ftp://': 'fxp://',
+        '.': '[.]',  # for IP, HOST, URL
+        ':': '[:]',  # for HOST, URL
+        '@': '[@]',  # for EMAIL, URL
+    }
+
+    refang_replacements = {v: k for k, v in list(defang_replacements.items())[::-1]}  # noqa: RUF012
+
+    @staticmethod
+    def defang(string: str) -> str:
+        """Defang URLs, IPs, and common indicators to make them inert."""
+
+        for old_word, new_word in Defanger.defang_replacements.items():
+            string = string.replace(old_word, new_word)
+
+        return string
+
+    @staticmethod
+    def refang(string: str) -> str:
+        """Refang URLs, IPs, and common indicators to make them active."""
+
+        for old_word, new_word in Defanger.refang_replacements.items():
+            string = string.replace(old_word, new_word)
+
+        return string
 
 
 class SnakeString(str):
