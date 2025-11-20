@@ -1,10 +1,8 @@
 """TcEx Framework Module"""
 
-# standard library
 import sys
 from typing import Literal, NoReturn
 
-# third-party
 from rich import print as print_
 from rich.columns import Columns
 from rich.panel import Panel

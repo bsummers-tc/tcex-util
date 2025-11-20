@@ -1,6 +1,5 @@
 """TcEx Framework Module"""
 
-# standard library
 from typing import Literal
 
 from .render_panel import RenderPanel

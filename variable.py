@@ -1,6 +1,5 @@
 """TcEx Framework Module"""
 
-# standard library
 import re
 
 from .model.playbook_variable_model import PlaybookVariableModel

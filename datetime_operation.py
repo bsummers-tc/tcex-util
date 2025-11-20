@@ -1,10 +1,8 @@
 """TcEx Framework Module"""
 
-# standard library
 from collections.abc import Generator
 from datetime import datetime
 
-# third-party
 import arrow as _arrow
 from arrow import Arrow
 from dateutil import parser

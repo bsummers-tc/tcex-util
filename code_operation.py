@@ -1,12 +1,10 @@
 """TcEx Framework Module"""
 
-# standard library
 import ast
 import logging
 import re
 from pathlib import Path
 
-# third-party
 import black
 import isort
 from black.report import NothingChanged

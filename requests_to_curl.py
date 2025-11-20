@@ -1,10 +1,8 @@
 """TcEx Framework Module"""
 
-# standard library
 import re
 from urllib.parse import urlsplit
 
-# third-party
 from pydantic import BaseModel, Field
 from requests import PreparedRequest  # TYPE-CHECKING
 
